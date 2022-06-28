@@ -11,24 +11,40 @@
     <h1>Custom Exercises</h1>
     <p>A place where you create flows just the way you want them to be</p>
     <p>Fill the form below to receive notification when service goes live</p>
-    <form action="/signup" method="post">
+    <form action="/signup" method="post" id="signup">
         <ul>
             <li>
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" required>
             </li>
             <li>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" minlength="10" maxlength="30" required>
             </li>
             <li>
                 <label for="confirm-password">Confirm password:</label>
-                <input type="password" id="confirm-password" name="confirm-password">
+                <input type="password" id="confirm-password" name="confirm-password" minlength="10" maxlength="30" required>
             </li>
             <li class="button">
-                <button type="submit">Register</button>
+                <button type="button" onclick="validateAndSubmit()">Register</button>
             </li>
         </ul>
     </form>
 </body>
+<script>
+    function validateAndSubmit() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm-password").value;
+        if(password === confirmPassword) {
+            document.getElementById("signup").requestSubmit();
+        } else {
+            if (document.getElementById("submit-error") === null) {
+                var li = document.createElement("li");
+                li.setAttribute("id", "submit-error");
+                li.innerHTML = "<p>Passwords do not match, please try again</p>"
+                document.querySelector("#signup ul").appendChild(li);
+            }
+        }
+    }
+</script>
 </html>
